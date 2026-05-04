@@ -244,9 +244,9 @@
       </p>
 
       <div class="downloads">
-        <a href="ai-id-micro-review/supplementary_material_searchable.csv" download>Download CSV</a>
-        <a href="ai-id-micro-review/supplementary_material_searchable.xlsx" download>Download Excel</a>
-        <a href="ai-id-micro-review/poster.png" download>Download poster image</a>
+        <a href="ai-id-micro-review/data/supplementary_material_searchable.csv" download>Download CSV</a>
+        <a href="ai-id-micro-review/data/supplementary_material_searchable.xlsx" download>Download Excel</a>
+        <a href="ai-id-micro-review/assets/poster.png" download>Download poster image</a>
       </div>
     </section>
 
@@ -255,7 +255,7 @@
       <p>
         The poster summarises the scoping review methods, evidence map, and main findings.
       </p>
-      <img src="ai-id-micro-review/poster.png" alt="Scoping review poster" class="poster-image" />
+      <img src="ai-id-micro-review/assets/poster.png" alt="Scoping review poster" class="poster-image" />
     </section>
 
     <section>
@@ -325,7 +325,7 @@
   <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 
   <script>
-    const csvPath = "ai-id-micro-review/supplementary_material_searchable.csv";
+    const csvPath = "ai-id-micro-review/data/supplementary_material_searchable.csv";
 
     function makeDoiLink(doi) {
       if (!doi || doi.trim() === "") return "";
@@ -350,9 +350,7 @@
 
     function getColumnValue(row, possibleNames) {
       for (const name of possibleNames) {
-        if (row[name] !== undefined) {
-          return row[name];
-        }
+        if (row[name] !== undefined) return row[name];
       }
       return "";
     }
@@ -390,7 +388,6 @@
           });
 
           button.classList.add("active");
-
           table.column(3).search(label, false, true).draw();
         });
 
@@ -483,7 +480,7 @@
 
       error: function(error) {
         console.error("Error loading CSV:", error);
-        alert("Could not load the CSV file. Check that ai-id-micro-review/supplementary_material_searchable.csv exists.");
+        alert("Could not load the CSV file. Check that ai-id-micro-review/data/supplementary_material_searchable.csv exists.");
       }
     });
   </script>
