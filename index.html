@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AI in Infectious Diseases and Clinical Microbiology Evidence Map</title>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      background: #ffffff;
+      color: #1f2933;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #0f172a;
+      color: white;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 auto 0.8rem auto;
+      max-width: 1000px;
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    header p {
+      margin: 0 auto;
+      max-width: 850px;
+      font-size: 1rem;
+      color: #dbeafe;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem 1.25rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+      color: #111827;
+    }
+
+    .summary-box {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .downloads a {
+      display: inline-block;
+      margin: 0.25rem 0.4rem 0.25rem 0;
+      padding: 0.6rem 0.9rem;
+      background: #0f766e;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .downloads a:hover {
+      background: #115e59;
+    }
+
+    .poster-image {
+      max-width: 100%;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+    }
+
+    .filter-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+      color: #111827;
+    }
+
+    .filter-group input,
+    .filter-group select {
+      width: 100%;
+      padding: 0.55rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+
+    .label-filter-section {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+    }
+
+    .label-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .label-button {
+      border: 1px solid #0f766e;
+      background: #ffffff;
+      color: #0f766e;
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .label-button:hover {
+      background: #ccfbf1;
+    }
+
+    .label-button.active {
+      background: #0f766e;
+      color: #ffffff;
+    }
+
+    .clear-button {
+      border: none;
+      background: #334155;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 0.45rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .clear-button:hover {
+      background: #1e293b;
+    }
+
+    .note {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-top: 0.75rem;
+    }
+
+    table.dataTable tbody td {
+      vertical-align: top;
+    }
+
+    .labels-cell {
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    .label-chip {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #075985;
+      border-radius: 999px;
+      padding: 0.15rem 0.5rem;
+      margin: 0.1rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .title-cell {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    footer {
+      background: #f1f5f9;
+      border-top: 1px solid #e5e7eb;
+      padding: 1.5rem;
+      text-align: center;
+      color: #475569;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      main {
+        padding: 1.25rem 0.75rem 3rem 0.75rem;
+      }
+
+      table {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Artificial Intelligence in Infectious Diseases and Clinical Microbiology</h1>
+    <p>Searchable supplementary evidence map of included studies from a scoping review.</p>
+  </header>
+
+  <main>
+    <section class="summary-box">
+      <h2>About this database</h2>
+      <p>
+        This searchable database contains studies included in a scoping review of
+        artificial intelligence applications in infectious diseases and clinical microbiology.
+        Records are labelled by publication year, AI method, application type, infection or
+        condition, and clinical or laboratory focus.
+      </p>
+      <p>
+        Labels are non-mutually exclusive: a single study may appear under more than one
+        label, condition, application type, or AI method.
+      </p>
+
+      <div class="downloads">
+        <a href="supplementary_material_searchable.csv" download>Download CSV</a>
+        <a href="supplementary_material_searchable.xlsx" download>Download Excel</a>
+        <a href="poster.png" download>Download poster image</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Poster</h2>
+      <p>
+        The poster summarises the scoping review methods, evidence map, and main findings.
+      </p>
+      <img src="poster.png" alt="Scoping review poster" class="poster-image" />
+    </section>
+
+    <section>
+      <h2>Authors</h2>
+      <p>
+        Add your short author blurb here. For example: This work was conducted by researchers
+        interested in infectious diseases, clinical microbiology, evidence synthesis, and the
+        responsible use of artificial intelligence in infection care.
+      </p>
+    </section>
+
+    <section>
+      <h2>Search the evidence map</h2>
+
+      <div class="filters">
+        <div class="filter-group">
+          <label for="titleSearch">Search title</label>
+          <input type="text" id="titleSearch" placeholder="e.g. sepsis, tuberculosis, malaria" />
+        </div>
+
+        <div class="filter-group">
+          <label for="labelSearch">Search labels manually</label>
+          <input type="text" id="labelSearch" placeholder="e.g. diagnostics, machine learning" />
+        </div>
+
+        <div class="filter-group">
+          <label for="yearFilter">Filter by publication year</label>
+          <select id="yearFilter">
+            <option value="">All years</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="label-filter-section">
+        <h3>Filter by generated label</h3>
+        <p class="note">Click a label button to show articles tagged with that term.</p>
+        <div id="labelButtons" class="label-buttons"></div>
+        <button id="clearLabelFilter" class="clear-button">Clear label filter</button>
+      </div>
+
+      <table id="evidenceTable" class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Publication Year</th>
+            <th>Labels</th>
+            <th>DOI</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <p class="note">
+        Tip: use label buttons or search terms such as “diagnostics”, “therapeutics”,
+        “education”, “sepsis”, “tuberculosis”, “machine learning”, or “deep learning”.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    Supplementary material for scoping review evidence map.
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    const csvPath = "supplementary_material_searchable.csv";
+
+    function makeDoiLink(doi) {
+      if (!doi || doi.trim() === "") return "";
+
+      let cleanDoi = doi.trim();
+      cleanDoi = cleanDoi.replace(/^https?:\/\/doi\.org\//i, "");
+      cleanDoi = cleanDoi.replace(/^doi:\s*/i, "");
+
+      return `<a href="https://doi.org/${cleanDoi}" target="_blank" rel="noopener">${cleanDoi}</a>`;
+    }
+
+    function formatLabels(labels) {
+      if (!labels || labels.trim() === "") return "";
+
+      return labels
+        .split(";")
+        .map(label => label.trim())
+        .filter(label => label.length > 0)
+        .map(label => `<span class="label-chip">${label}</span>`)
+        .join(" ");
+    }
+
+    function getColumnValue(row, possibleNames) {
+      for (const name of possibleNames) {
+        if (row[name] !== undefined) {
+          return row[name];
+        }
+      }
+      return "";
+    }
+
+    function extractLabelsFromData(data) {
+      const labelSet = new Set();
+
+      data.forEach(row => {
+        const labels = getColumnValue(row, ["Labels", "labels"]);
+
+        if (labels) {
+          labels
+            .split(";")
+            .map(label => label.trim())
+            .filter(label => label.length > 0)
+            .forEach(label => labelSet.add(label));
+        }
+      });
+
+      return Array.from(labelSet).sort((a, b) => a.localeCompare(b));
+    }
+
+    function createLabelButtons(labels, table) {
+      const container = document.getElementById("labelButtons");
+      container.innerHTML = "";
+
+      labels.forEach(label => {
+        const button = document.createElement("button");
+        button.className = "label-button";
+        button.textContent = label;
+
+        button.addEventListener("click", function() {
+          document.querySelectorAll(".label-button").forEach(btn => {
+            btn.classList.remove("active");
+          });
+
+          button.classList.add("active");
+
+          table.column(3).search(label, false, true).draw();
+        });
+
+        container.appendChild(button);
+      });
+    }
+
+    Papa.parse(csvPath, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+
+      complete: function(results) {
+        const data = results.data;
+
+        const tableRows = data.map(row => {
+          const number = getColumnValue(row, ["Number", "number"]);
+          const title = getColumnValue(row, ["Title", "title"]);
+          const year = getColumnValue(row, ["Publication Year", "publication year", "Year", "year"]);
+          const labels = getColumnValue(row, ["Labels", "labels"]);
+          const doi = getColumnValue(row, ["DOI", "doi"]);
+
+          return [
+            number,
+            `<span class="title-cell">${title}</span>`,
+            year,
+            `<span class="labels-cell">${formatLabels(labels)}</span>`,
+            makeDoiLink(doi)
+          ];
+        });
+
+        const table = $("#evidenceTable").DataTable({
+          data: tableRows,
+          pageLength: 25,
+          order: [[2, "desc"]],
+          columns: [
+            { title: "Number" },
+            { title: "Title" },
+            { title: "Publication Year" },
+            { title: "Labels" },
+            { title: "DOI" }
+          ],
+          autoWidth: false
+        });
+
+        const years = [...new Set(data.map(row =>
+          getColumnValue(row, ["Publication Year", "publication year", "Year", "year"])
+        ))]
+          .filter(year => year !== undefined && year !== null && String(year).trim() !== "")
+          .sort((a, b) => Number(b) - Number(a));
+
+        years.forEach(year => {
+          $("#yearFilter").append(`<option value="${year}">${year}</option>`);
+        });
+
+        const allLabels = extractLabelsFromData(data);
+        createLabelButtons(allLabels, table);
+
+        $("#titleSearch").on("keyup change", function() {
+          table.column(1).search(this.value).draw();
+        });
+
+        $("#labelSearch").on("keyup change", function() {
+          table.column(3).search(this.value).draw();
+
+          document.querySelectorAll(".label-button").forEach(btn => {
+            btn.classList.remove("active");
+          });
+        });
+
+        $("#yearFilter").on("change", function() {
+          const selectedYear = this.value;
+
+          if (selectedYear === "") {
+            table.column(2).search("").draw();
+          } else {
+            table.column(2).search("^" + selectedYear + "$", true, false).draw();
+          }
+        });
+
+        $("#clearLabelFilter").on("click", function() {
+          table.column(3).search("").draw();
+          $("#labelSearch").val("");
+
+          document.querySelectorAll(".label-button").forEach(btn => {
+            btn.classList.remove("active");
+          });
+        });
+      },
+
+      error: function(error) {
+        console.error("Error loading CSV:", error);
+        alert("Could not load the CSV file. Check that supplementary_material_searchable.csv exists.");
+      }
+    });
+  </script>
+</body>
+</html>
