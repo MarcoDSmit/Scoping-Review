@@ -148,6 +148,29 @@
       background: var(--white);
     }
 
+    .author-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .author-card {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .author-card h3 {
+      margin: 0 0 0.4rem 0;
+      color: var(--font);
+      font-weight: 900;
+    }
+
+    .author-card p {
+      margin: 0;
+    }
+
     .filters {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -396,10 +419,8 @@
 
       <div class="card">
         <h2>Downloads</h2>
-        <p class="note">Download the supplementary dataset or poster image.</p>
+        <p class="note">Download the poster image.</p>
         <div class="downloads">
-          <a href="ai-id-micro-review/data/supplementary_material_searchable.csv" download>CSV</a>
-          <a href="ai-id-micro-review/data/supplementary_material_searchable.xlsx" download>Excel</a>
           <a href="ai-id-micro-review/assets/poster.png" download>Poster image</a>
         </div>
       </div>
@@ -415,11 +436,64 @@
 
     <section class="card">
       <h2>Authors</h2>
-      <p>
-        Add your short author blurb here. For example: This work was conducted by researchers
-        interested in infectious diseases, clinical microbiology, evidence synthesis, and the
-        responsible use of artificial intelligence in infection care.
-      </p>
+
+      <div class="author-list">
+        <div class="author-card">
+          <h3>Smit, MD</h3>
+          <p>
+            Marco Smit has a keen interest in conducting impactful research relating to infectious diseases and artificial intelligence.
+            He holds a M.Sc. in Infectious Diseases and Microbiology from the University of Edinburgh and works at University Hospital Waterford.
+          </p>
+        </div>
+
+        <div class="author-card">
+          <h3>Smit, R</h3>
+          <p>
+            Author biography to be added.
+            Author biography to be added.
+          </p>
+        </div>
+
+        <div class="author-card">
+          <h3>Ismadi, FNA</h3>
+          <p>
+            Author biography to be added.
+            Author biography to be added.
+          </p>
+        </div>
+
+        <div class="author-card">
+          <h3>Bakierzynska, M</h3>
+          <p>
+            Author biography to be added.
+            Author biography to be added.
+          </p>
+        </div>
+
+        <div class="author-card">
+          <h3>Hunter, M</h3>
+          <p>
+            Author biography to be added.
+            Author biography to be added.
+          </p>
+        </div>
+
+        <div class="author-card">
+          <h3>Ferreira, J</h3>
+          <p>
+            Author biography to be added.
+            Author biography to be added.
+          </p>
+        </div>
+
+        <div class="author-card">
+          <h3>O’Riordan, R</h3>
+          <p>
+            Author biography to be added.
+            Author biography to be added.
+          </p>
+        </div>
+      </div>
     </section>
 
     <section>
