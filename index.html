@@ -489,10 +489,8 @@
         <div class="author-card">
           <h3>O’Riordan, R</h3>
           <p>
-            Dr O’Riordan is a Consultant Physician in Infectious Diseases and General Medicine at University Hospital Waterford. 
-            Appointed in 2021 as the first Infectious Diseases Consultant in the South East, she has helped develop the service into a three-consultant department. 
-            She leads Sexual Health Services and Outpatient Parenteral Antimicrobial Therapy, and chairs the Infection Prevention and Control Committee for University Hospital Waterford and Kilcreene Regional Orthopaedic Hospital. 
-            Her clinical, teaching, and research interests include HIV, antimicrobial management, population health, and bone and joint infections.
+            Author biography to be added.
+            Author biography to be added.
           </p>
         </div>
       </div>
@@ -612,7 +610,7 @@
       "influenza",
       "hiv",
       "urinary tract infection",
-      "Monkeypox",
+      "Mpox",
       "Viral hepatitis",
       "Pneumonia",
       "Septic shock",
@@ -689,6 +687,11 @@
       "interpretable machine learning"
     ];
 
+    function displayLabel(label) {
+      if (label === "Monkeypox") return "Mpox";
+      return label;
+    }
+
     function makeDoiLink(doi) {
       if (!doi || doi.trim() === "") return "";
 
@@ -706,7 +709,7 @@
         .split(";")
         .map(label => label.trim())
         .filter(label => label.length > 0)
-        .map(label => `<span class="label-chip">${label}</span>`)
+        .map(label => `<span class="label-chip">${displayLabel(label)}</span>`)
         .join(" ");
     }
 
@@ -718,7 +721,10 @@
     }
 
     function normaliseText(text) {
-      return String(text || "").toLowerCase().trim();
+      return String(text || "")
+        .replace(/Monkeypox/g, "Mpox")
+        .toLowerCase()
+        .trim();
     }
 
     function addOptionsToSelect(selectId, labels) {
@@ -852,9 +858,9 @@
         });
 
         const table = $("#evidenceTable").DataTable({
-            data: tableRows,
-            pageLength: 25,
-            order: [[0, "asc"]],
+          data: tableRows,
+          pageLength: 25,
+          order: [[0, "asc"]],
           columns: [
             { title: "Number" },
             { title: "Title" },
